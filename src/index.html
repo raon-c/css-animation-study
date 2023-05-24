@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="study.css" />
+  </head>
+  <body>
+    this is test page
+    <div class="test">테스트</div>
+    <button onclick="triggerAnimation('.test','animate__bounce')">
+      trigger
+    </button>
+  </body>
+  <script>
+    // @TODO: js 파일 분리한다.
+    // @TODO: 리팩토링한다.
+    const triggerAnimation = (element, animationName) =>
+      new Promise((resolve, reject) => {
+        const target = document.querySelector(element);
+
+        target.classList.add('animate__animated', animationName);
+
+        function handleAnimationEnd(event) {
+          event.stopPropagation();
+          target.classList.remove('animate__animated', animationName);
+          resolve();
+        }
+
+        target.addEventListener('animationend', handleAnimationEnd, {
+          once: true,
+        });
+      });
+  </script>
+</html>
